@@ -1,0 +1,55 @@
+server:
+  servlet:
+    # 项目contextPath
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
+# Spring配置
+spring:
+  # 启动配置
+  profiles:
+    active: dev
+  # 模板引擎
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # 禁用缓存
+    cache: false
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  # 文件上传
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+      exclude: html/**,static/**,templates/**
+
+# mybatis配置
+mybatis:
+  mapper-locations: classpath*:com/**/mapper/*.xml
+  type-aliases-package: com.fit.dao
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+
+# Ehcache配置
+cache:
+  type: ehcache
+  ehcache:
+    config: classpath:ehcache.xml

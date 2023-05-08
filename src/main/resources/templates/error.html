@@ -1,0 +1,25 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: head"></head>
+<body style="background-color:#fff">
+	<div class="page-error text-c">
+		<p class="error-title"><i class="Hui-iconfont va-m">&#xe688;</i>
+			<span class="va-m"> ERROR</span>
+		</p>
+		<p class="error-description">不好意思，您访问的出错了~</p>
+		<p class="error-info">您可以：
+			<a href="javascript:;" onclick="history.go(-1)" class="c-primary">&lt; 返回上一页</a>
+			<span class="ml-20">|</span>
+			<a href="/" class="c-primary ml-20">去首页 &gt;</a>
+		</p>
+	</div>
+
+	<div th:include="include :: footer"></div>
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="/business/js/main.js"></script>
+
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

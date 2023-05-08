@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fit.dao.SysResourcesDao" >
+  <resultMap id="BaseResultMap" type="com.fit.model.SysResources" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="creatDate" property="creatdate" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="resurl" property="resurl" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="isys" property="isys" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, creatDate, `name`, `type`, icon, priority, resurl, description, enabled, isys, 
+    pid, pname
+  </sql>
+  <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resources
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long" >
+    delete from sys_resources
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="save" parameterType="com.fit.model.SysResources" >
+    insert into sys_resources
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="creatdate != null" >
+        creatDate,
+      </if>
+      <if test="name != null" >
+        `name`,
+      </if>
+      <if test="type != null" >
+        `type`,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="resurl != null" >
+        resurl,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="isys != null" >
+        isys,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="creatdate != null" >
+        #{creatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="resurl != null" >
+        #{resurl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="isys != null" >
+        #{isys,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.model.SysResources" >
+    update sys_resources
+    <set >
+      <if test="creatdate != null" >
+        creatDate = #{creatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="resurl != null" >
+        resurl = #{resurl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="isys != null" >
+        isys = #{isys,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <sql id="Base_Where_List" >
+    <where >
+      <if test="creatdate != null" >
+         and creatDate = #{creatdate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="name != null and name != ''" >
+         and `name` = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null and type != ''" >
+         and `type` = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="icon != null and icon != ''" >
+         and icon = #{icon,jdbcType=VARCHAR}
+      </if>
+      <if test="priority != null and priority != ''" >
+         and priority = #{priority,jdbcType=INTEGER}
+      </if>
+      <if test="resurl != null and resurl != ''" >
+         and resurl = #{resurl,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null and description != ''" >
+         and description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="enabled != null and enabled != ''" >
+         and enabled = #{enabled,jdbcType=BIT}
+      </if>
+      <if test="isys != null and isys != ''" >
+         and isys = #{isys,jdbcType=INTEGER}
+      </if>
+      <if test="pid != null and pid != ''" >
+         and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="pname != null and pname != ''" >
+         and pname = #{pname,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.fit.model.SysResources" >
+     select 
+    <include refid="Base_Column_List" />
+     from sys_resources
+    <include refid="Base_Where_List" />
+    order by id desc 
+	<if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    select count(1) from sys_resources
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     select 
+    <include refid="Base_Column_List" />
+     from sys_resources
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete" >
+    delete from sys_resources
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

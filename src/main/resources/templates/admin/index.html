@@ -1,0 +1,81 @@
+﻿<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: head"></head>
+<body>
+<aside class="Hui-admin-aside-wrapper">
+    <div class="Hui-admin-logo-wrapper">
+        <a class="logo navbar-logo" href="/aboutHui.shtml">
+            <i class="va-m iconpic global-logo"></i>
+            <span class="va-m">H-ui.admin</span>
+        </a>
+    </div>
+    <div class="Hui-admin-menu-dropdown bk_2">
+        <dl class="Hui-menu" th:each="menu : ${menus}">
+            <dt class="Hui-menu-title">
+                <i class="Hui-iconfont" th:text="${menu.icon}"></i><span th:text="${menu.name}"></span>
+                <i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+            </dt>
+            <dd class="Hui-menu-item">
+                <ul>
+                    <li th:each="cmenu : ${menu.children}">
+                        <a th:if="${#lists.isEmpty(cmenu.children)}" th:text="${cmenu.name}" th:data-title="${cmenu.name}" th:data-href="${cmenu.url}">二级页面</a>
+                        <dl th:if="${not #lists.isEmpty(cmenu.children)}" class="Hui-menu">
+                            <dt class="Hui-menu-title">
+                                <i class="Hui-iconfont"></i> [[${cmenu.name}]]<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i>
+                            </dt>
+                            <dd class="Hui-menu-item">
+                                <ul th:each="emenu : ${cmenu.children}">
+                                    <li><a th:text="${emenu.name}" th:data-title="${cmenu.name}" th:data-href="${emenu.url}">三级菜单</a></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</aside>
+<div class="Hui-admin-aside-mask"></div>
+<!--/_menu 作为公共模版分离出去-->
+
+<div class="Hui-admin-dislpayArrow">
+    <a href="javascript:void(0);" onClick="displaynavbar(this)">
+        <i class="Hui-iconfont Hui-iconfont-left">&#xe6d4;</i>
+        <i class="Hui-iconfont Hui-iconfont-right">&#xe6d7;</i>
+    </a>
+</div>
+
+<section class="Hui-admin-article-wrapper">
+    <!--_header 作为公共模版分离出去-->
+    <div th:include="include :: header"></div>
+    <!--/_header 作为公共模版分离出去-->
+
+    <div id="Hui-admin-tabNav" class="Hui-admin-tabNav">
+        <div class="Hui-admin-tabNav-wp">
+            <ul id="min_title_list" class="acrossTab clearfix" style="width: 241px; left: 0px;">
+                <li class="active"><span title="我的桌面" data-href="welcome.html">我的桌面</span><em></em></li>
+            </ul>
+        </div>
+        <div class="Hui-admin-tabNav-more btn-group" style="display: none;">
+            <a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a>
+            <a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a>
+        </div>
+    </div>
+
+    <div id="iframe_box" class="Hui-admin-article">
+        <div class="show_iframe">
+            <iframe id="iframe-welcome" data-scrolltop="0" scrolling="yes" frameborder="0" src="/admin/welcome.html"></iframe>
+        </div>
+    </div>
+</section>
+<div class="contextMenu" id="Huiadminmenu">
+    <ul>
+        <li id="closethis">关闭当前</li>
+        <li id="closeall">关闭全部</li>
+    </ul>
+</div>
+<div th:include="include :: footer"></div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/business/js/main.js"></script>
+</body>
+</html>

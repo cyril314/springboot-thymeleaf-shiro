@@ -1,0 +1,102 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: head"></head>
+<body style="background-color:#fff">
+	<div class="wap-container">
+		<div class="panel">
+			<div class="panel-body">
+				<form method="post" class="form form-horizontal" id="form-member-add">
+					<input type="hidden" id="uid" name="id" th:value="${user?.id}" />
+					<div class="row clearfix">
+						<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户姓名：</label>
+						<div class="form-controls col-xs-8 col-sm-9">
+							<input type="text" class="input-text" placeholder="请输入用户名" name="name" th:value="${user?.name}" />
+						</div>
+					</div>
+					<div class="row clearfix">
+						<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登陆名称：</label>
+						<div class="form-controls col-xs-8 col-sm-9">
+							<input type="text" class="input-text" placeholder="请输入登陆名" name="username" th:value="${user?.username}" />
+						</div>
+					</div>
+					<div class="row clearfix" th:if="${user } ? false : true">
+						<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户密码：</label>
+						<div class="form-controls col-xs-8 col-sm-9">
+							<input type="password" class="input-text" placeholder="请输入密码" name="password" />
+						</div>
+					</div>
+					<div class="row clearfix" th:if="${user } ? false : true">
+						<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+						<div class="form-controls col-xs-8 col-sm-9">
+							<input type="password" class="input-text" placeholder="请确认输入密码" id="Confirm" />
+						</div>
+					</div>
+					<div class="row clearfix">
+						<label class="form-label col-xs-4 col-sm-3">描述：</label>
+						<div class="form-controls col-xs-8 col-sm-9">
+							<textarea name="desc" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符"
+									  th:value="${user?.desc}" onKeyUp="Huitextarealength(this,100)"></textarea>
+							<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+						</div>
+					</div>
+					<div class="row clearfix">
+						<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+							<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript" src="/plugin/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript" src="/plugin/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript" src="/plugin/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
+
+			$("#form-member-add").validate({
+				rules:{
+					name:{
+						required:true,
+						minlength:2,
+						maxlength:16
+					},
+					username:{
+						required:true,
+						minlength:2,
+						maxlength:16
+					}
+				},
+				onkeyup:false,
+				focusCleanup:true,
+				success:"valid",
+				submitHandler:function(form){
+					$(form).ajaxSubmit({
+                        type: 'post',
+                        dataType: "json",
+                        url: "/admin/user/save",
+                        success: function(data){
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.location.replace(parent.location.href)
+                            parent.layer.close(index);
+                        },
+                        error: function(XmlHttpRequest, textStatus, errorThrown){
+                            layer.msg('error!',{icon:1,time:1000});
+                        }
+					});
+				}
+			});
+		});
+	</script>
+	<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

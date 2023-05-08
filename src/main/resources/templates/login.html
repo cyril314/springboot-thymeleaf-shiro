@@ -1,0 +1,90 @@
+﻿<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: head"></head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/H-ui.login.min.css}"/>
+<script>
+    /*<![CDATA[*/
+    if (window.top != null && window.top.location != window.location) {
+        window.top.location = window.location;
+    }
+    if (self != top) {
+        top.location.href = self.location.href;
+    }
+    /*]]>*/
+</script>
+<body>
+<div class="header"></div>
+<div class="loginWraper">
+    <div id="loginform" class="loginBox">
+        <form class="form form-horizontal" id="login-form" method="post">
+            <div class="row clearfix">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                <div class="form-controls col-xs-8">
+                    <input name="username" type="text" placeholder="账户" class="input-text size-L"/>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                <div class="form-controls col-xs-8">
+                    <input name="password" type="password" placeholder="密码" class="input-text size-L"/>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="form-controls col-xs-8 col-xs-offset-3">
+                    <label for="online">
+                        <input type="checkbox" name="rememberMe" id="online"/>
+                        <span>使我保持登录状态</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="form-controls col-xs-8 col-xs-offset-3">
+                    <input type="submit" class="btn btn-success radius size-L" value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
+                    <input type="reset" class="btn btn-default radius size-L" value="取&nbsp;&nbsp;&nbsp;&nbsp;消">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">Copyright 你的公司名称 by h-ui.admin.pro.iframe v1.0</div>
+<script th:src="@{/plugin/jquery/1.9.1/jquery.min.js}"></script>
+<script th:src="@{/js/H-ui.min.js}"></script>
+<script type="text/javascript" src="/plugin/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/plugin/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/plugin/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#login-form").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 16
+                },
+                password: {required: true,}
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'post',
+                    dataType: "json",
+                    url: "/ajaxLogin",
+                    success: function (data) {
+                        $.Huimodalalert(data.msg, data.code);
+                        if (data.code == 200) {
+                            window.location.href = "/admin"
+                        }
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        $.Huimodalalert('error!', 2000);
+                    }
+                });
+
+            }
+        });
+    });
+</script>
+</body>
+</html>
