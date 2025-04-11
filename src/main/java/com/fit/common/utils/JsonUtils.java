@@ -15,7 +15,6 @@ import java.util.Set;
  */
 public class JsonUtils {
 
-    @SuppressWarnings("unchecked")
     public static String toJson(Object o) {
         try {
             if (o == null)
